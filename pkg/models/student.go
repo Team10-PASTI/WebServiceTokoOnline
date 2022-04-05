@@ -1,18 +1,18 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
 	"github.com/Wordyka/go_students_crud_mysql/pkg/config"
+	"github.com/jinzhu/gorm"
 )
 
 var db *gorm.DB
 
 type Student struct {
 	gorm.Model
-	NIM string `gorm:""json:"nim"`
-	Name string `json:"name"`
-	IPK string `json:"ipk"`
-	Jurusan string `json:"jurusan"`
+	NIM      string `gorm:""json:"nim"`
+	Name     string `json:"name"`
+	IPK      string `json:"ipk"`
+	Jurusan  string `json:"jurusan"`
 	Angkatan string `json:"angkatan"`
 }
 
