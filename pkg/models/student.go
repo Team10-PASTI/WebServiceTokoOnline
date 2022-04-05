@@ -9,11 +9,16 @@ var db *gorm.DB
 
 type Student struct {
 	gorm.Model
-	NIM      string `gorm:""json:"nim"`
-	Name     string `json:"name"`
-	IPK      string `json:"ipk"`
-	Jurusan  string `json:"jurusan"`
-	Angkatan string `json:"angkatan"`
+	NIM           string `gorm:""json:"nim"`
+	Name          string `json:"name"`
+	IPK           string `json:"ipk"`
+	Jurusan       string `json:"jurusan"`
+	Angkatan      string `json:"angkatan"`
+	StatusAktif   string `jsonn:"status_aktif"`
+	Username      string `json:"username"`
+	EmailAkademik string `json:"email_akademik"`
+	WaliMahasiswa string `json:"wali_mahasiswa"`
+	JalurUSM      string `json:"jalur_USM"`
 }
 
 func init() {
