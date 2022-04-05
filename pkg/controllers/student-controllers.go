@@ -7,8 +7,8 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/rudychandra/go_students_crud_mysql/pkg/models"
-	"github.com/rudychandra/go_students_crud_mysql/pkg/utils"
+	"github.com/Wordyka/go_students_crud_mysql/pkg/models"
+	"github.com/Wordyka/go_students_crud_mysql/pkg/utils"
 )
 
 var NewStudent models.Student

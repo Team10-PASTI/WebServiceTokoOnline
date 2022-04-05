@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/rudychandra/go_students_crud_mysql/pkg/config"
+	"github.com/Wordyka/go_students_crud_mysql/pkg/config"
 )
 
 var db *gorm.DB
