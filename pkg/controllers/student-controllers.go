@@ -47,11 +47,11 @@ func CreateStudent(w http.ResponseWriter, r *http.Request) {
 func DeleteStudent(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	studentId := vars["studentId"]
-	NIM, err := strconv.ParseInt(studentId, 0, 0)
+	ID, err := strconv.ParseInt(studentId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	student := models.DeleteStudent(NIM)
+	student := models.DeleteStudent(ID)
 	res, _ := json.Marshal(student)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -63,11 +63,11 @@ func UpdateStudent(w http.ResponseWriter, r *http.Request) {
 	utils.ParseBody(r, updateStudent)
 	vars := mux.Vars(r)
 	studentId := vars["studentId"]
-	NIM, err := strconv.ParseInt(studentId, 0, 0)
+	ID, err := strconv.ParseInt(studentId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	studentDetails, db := models.GetStudentbyId(NIM)
+	studentDetails, db := models.GetStudentbyId(ID)
 	if updateStudent.Name != "" {
 		studentDetails.Name = updateStudent.Name
 	}
