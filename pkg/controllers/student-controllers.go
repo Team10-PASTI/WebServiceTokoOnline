@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-
 	"github.com/gorilla/mux"
 	"github.com/Wordyka/go_students_crud_mysql/pkg/models"
 	"github.com/Wordyka/go_students_crud_mysql/pkg/utils"
