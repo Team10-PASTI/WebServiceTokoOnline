@@ -13,7 +13,8 @@ import (
 func main() {
 	r := mux.NewRouter()	// membuat suatu gorilla / mux router baru
 	routes.RegisterStudentsRoutes(r)	// memanggil variabel RegisterStudentRoutes pada package routes
-	http.Handle("/", r)	
+	http.Handle("/", r)	 // fungsi handle untuk mendefeinisikan pattern dari route dan sebagai listen / serve HTTP function
 	fmt.Print("Starting Server localhost:9010")
 	log.Fatal(http.ListenAndServe("localhost:9010", r))
 }
+
