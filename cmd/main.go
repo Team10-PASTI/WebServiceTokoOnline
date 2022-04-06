@@ -1,4 +1,6 @@
 package main
+
+// import package yang akan digunakan 
 import (
 	"fmt"
 	"log"
@@ -9,9 +11,9 @@ import (
 )
 
 func main() {
-	r := mux.NewRouter()
-	routes.RegisterStudentsRoutes(r)
-	http.Handle("/", r)
+	r := mux.NewRouter()	// membuat suatu gorilla / mux router baru
+	routes.RegisterStudentsRoutes(r)	// memanggil variabel RegisterStudentRoutes pada package routes
+	http.Handle("/", r)	
 	fmt.Print("Starting Server localhost:9010")
 	log.Fatal(http.ListenAndServe("localhost:9010", r))
 }
