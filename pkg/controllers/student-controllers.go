@@ -11,100 +11,93 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// menginstansisasi Student dari package models pada variabel NewStudent
-var NewStudent models.Student
+var NewProduk models.Produk
 
-// fungsi mendapatkan semua data pada tabel student
-func GetStudent(w http.ResponseWriter, r *http.Request) {
-	newStudents := models.GetAllStudents()             // memanggil fungsi GetAllStudents() pada package models
-	res, _ := json.Marshal(newStudents)                // melakukan konversi (marshalling) object menjadi JSON
-	w.Header().Set("Content-Type", "pkglication/json") // membuat header dengan parameter berupa pasangan key dan value
-	w.WriteHeader(http.StatusOK)                       // status bahwa data berhasil di get
-	w.Write(res)                                       // menampilkan data
+// fungsi yang digunakan memanggil seluruh data yang terdapat pada tabel
+func GetProduk(w http.ResponseWriter, r *http.Request) {
+	newProduk := models.GetAllProduk()
+	res, _ := json.Marshal(newProduk)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }
 
-// fungsi mendapatkan data pada tabel student berdasarkan nim
-func GetStudentById(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)                           // mengambil data dari segmen dengan http.Request sebagai parameter
-	studentId := vars["studentId"]                // data yang diambil didasarkan pada value StudentId
-	NIM, err := strconv.ParseInt(studentId, 0, 0) // melakukan pengecekan error menggunakan fungsi strconv() untuk konversi
+// fungsi yang digunakan memanggil data yang sesuai dengan ID yang direquest
+func GetProdukById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	ProdukId := vars["ProdukId"]
+	ID, err := strconv.ParseInt(ProdukId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	studentDetails, _ := models.GetStudentbyId(NIM)    // memanggil fungsi GetStudentbyId dengan parameter value NIM
-	res, _ := json.Marshal(studentDetails)             // melakukan konversi (marshalling) object menjadi JSON
-	w.Header().Set("Content-Type", "pkglication/json") // membuat header dengan parameter berupa pasangan key dan value
-	w.WriteHeader(http.StatusOK)                       // status bahwa data berhasil di get
-	w.Write(res)                                       // menampilkan data
+	ProdukDetails, _ := models.GetProdukbyId(ID)
+	res, _ := json.Marshal(ProdukDetails)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }
 
-func CreateStudent(w http.ResponseWriter, r *http.Request) {
-	CreateStudent := &models.Student{}                 // memanggil struct Student
-	utils.ParseBody(r, CreateStudent)                  // memanggil fungsi ParseBody() dari package utils untuk parsing body menjadi byte
-	b := CreateStudent.CreateStudent()                 // memanggil fungsi CreateStudent() dari package student
-	res, _ := json.Marshal(b)                          // melakukan konversi (marshalling) object menjadi JSON
-	w.Header().Set("Content-Type", "pkglication/json") // membuat header dengan parameter berupa pasangan key dan value
-	w.WriteHeader(http.StatusOK)                       // status bahwa data berhasil di get
-	w.Write(res)                                       // menampilkan data
+// fungsi yang digunakan ketika menmbah user baru pada database
+func CreateProduk(w http.ResponseWriter, r *http.Request) {
+	CreateProduk := &models.Produk{}
+	utils.ParseBody(r, CreateProduk)
+	b := CreateProduk.CreateProduk()
+	res, _ := json.Marshal(b)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }
 
-func DeleteStudent(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)                          // mengambil data dari segmen dengan http.Request sebagai parameter
-	studentId := vars["studentId"]               // data yang diambil didasarkan pada value StudentId
-	ID, err := strconv.ParseInt(studentId, 0, 0) // melakukan pengecekan error menggunakan fungsi strconv() untuk konversi
+// fungsi yang digunakan ketika menhapus data pada database
+func DeleteProduk(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	ProdukID := vars["ID"]
+	ID, err := strconv.ParseInt(ProdukID, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	student := models.DeleteStudent(ID)                // memanggil fungsi DeleteStudent dengan parameter value NIM
-	res, _ := json.Marshal(student)                    // melakukan konversi (marshalling) object menjadi JSON
-	w.Header().Set("Content-Type", "pkglication/json") // membuat header dengan parameter berupa pasangan key dan value
-	w.WriteHeader(http.StatusOK)                       // status bahwa data berhasil di get
-	w.Write(res)                                       // menampilkan data
+	Produk := models.DeleteProduk(ID)
+	res, _ := json.Marshal(Produk)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }
 
-func UpdateStudent(w http.ResponseWriter, r *http.Request) {
-	var updateStudent = &models.Student{}        // memanggil struct Student
-	utils.ParseBody(r, updateStudent)            // memanggil fungsi ParseBody() dari package utils untuk parsing body menjadi byte
-	vars := mux.Vars(r)                          // mengambil data dari segmen dengan http.Request sebagai parameter
-	studentId := vars["studentId"]               // data yang diambil didasarkan pada value StudentId
-	ID, err := strconv.ParseInt(studentId, 0, 0) // melakukan pengecekan error menggunakan fungsi strconv() untuk konversi
+// fungsi unutk mengedit data pada database
+func UpdateProduk(w http.ResponseWriter, r *http.Request) {
+	var updateProduk = &models.Produk{}
+	utils.ParseBody(r, updateProduk)
+	vars := mux.Vars(r)
+	ProdukID := vars["ProdukID"]
+	ID, err := strconv.ParseInt(ProdukID, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	studentDetails, db := models.GetStudentbyId(ID) // memanggil fungsi GetStudentbyId dari package models
-
-	// pengecekan jika field yang akan diupdate adalah data yang tidak kosong
-	if updateStudent.Name != "" {
-		studentDetails.Name = updateStudent.Name
+	ProdukDetails, db := models.GetProdukbyId(ID)
+	if updateProduk.Nama != "" { // pengkondisian untuk mengubah nilai dari nama jika terdapat perubahan yang dilakukan
+		ProdukDetails.ID = updateProduk.ID
 	}
-	if updateStudent.IPK != "" {
-		studentDetails.IPK = updateStudent.IPK
+	if updateProduk.Nama != "" { // pengkondisian untuk mengubah nilai dari ipk jika terdapat perubahan yang dilakukan
+		ProdukDetails.Nama = updateProduk.Nama
 	}
-	if updateStudent.Jurusan != "" {
-		studentDetails.Jurusan = updateStudent.Jurusan
+	if updateProduk.Kategori != "" { // pengkondisian untuk mengubah nilai dari jurusan jika terdapat perubahan yang dilakukan
+		ProdukDetails.Kategori = updateProduk.Kategori
 	}
-	if updateStudent.Angkatan != "" {
-		studentDetails.Angkatan = updateStudent.Angkatan
+	if updateProduk.Harga != 0 { // pengkondisian untuk mengubah nilai dari angkatan jika terdapat perubahan yang dilakukan
+		ProdukDetails.Harga = updateProduk.Harga
 	}
-	if updateStudent.StatusAktif != "" {
-		studentDetails.StatusAktif = updateStudent.StatusAktif
+	if updateProduk.Gambar != "" { // pengkondisian untuk mengubah nilai dari status aktif jika terdapat perubahan yang dilakukan
+		ProdukDetails.Gambar = updateProduk.Gambar
 	}
-	if updateStudent.Username != "" {
-		studentDetails.Username = updateStudent.Username
+	if updateProduk.Detail != "" { // pengkondisian untuk mengubah nilai dari username jika terdapat perubahan yang dilakukan
+		ProdukDetails.Detail = updateProduk.Detail
 	}
-	if updateStudent.EmailAkademik != "" {
-		studentDetails.EmailAkademik = updateStudent.EmailAkademik
+	if updateProduk.Jumlah != 0 { // pengkondisian untuk mengubah nilai dari email akademik jika terdapat perubahan yang dilakukan
+		ProdukDetails.Jumlah = updateProduk.Jumlah
 	}
-	if updateStudent.WaliMahasiswa != "" {
-		studentDetails.WaliMahasiswa = updateStudent.WaliMahasiswa
-	}
-	if updateStudent.JalurUSM != "" {
-		studentDetails.JalurUSM = updateStudent.JalurUSM
-	}
-
-	db.Save(&studentDetails)                           // menyimpan perubahan pada database
-	res, _ := json.Marshal(studentDetails)             // melakukan konversi (marshalling) object menjadi JSON
-	w.Header().Set("Content-Type", "pkglication/json") // membuat header dengan parameter berupa pasangan key dan value
-	w.WriteHeader(http.StatusOK)                       // status bahwa data berhasil di get
-	w.Write(res)                                       // menampilkan data
+	db.Save(&ProdukDetails) // mensave hasil perubahan
+	res, _ := json.Marshal(ProdukDetails)
+	w.Header().Set("Content-Type", "pkglication/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }

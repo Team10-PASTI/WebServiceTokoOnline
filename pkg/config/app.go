@@ -5,21 +5,21 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-// deklarasi variabel melalui package yang diimport sebagai penghubung interaksi ke database
 var (
 	db *gorm.DB
 )
 
-// fungsi untuk melakukan koneksi ke jenis database mysql dengan menginsert username, password, dan tabel database yang akan dikoneksikan 
-func Connect() {
-	d, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_go_mysql?charset=utf8mb4&parseTime=True&loc=Local")
+func Connect() { // fungsi untuk melakukan koneksi ke database
+	//dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+	//d, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	d, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3306)/db_tokoonlen?charset=utf8mb4&parseTime=True&loc=Local")
+	//d, err := gorm.Open("mysql", "rudychandra:Rudy_chandra0/simplerest?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
-		panic(err)
+		panic(err) // digunakan untuk menampilkan stact trace error dan mengheentikan flow goroutine
 	}
 	db = d
 }
 
-// fungsi untuk mendapatkan database 
 func GetDB() *gorm.DB {
 	return db
 }

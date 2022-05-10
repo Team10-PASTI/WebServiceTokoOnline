@@ -7,53 +7,49 @@ import (
 
 var db *gorm.DB
 
-// mendefenisikan suatu struct dengan nama Student sebagai field dari tabel database
-type Student struct {
+// Membuat sebuah struct unutk mencreate tabel Produk dan tipe data setiap kolomnya
+type Produk struct {
 	gorm.Model
-	NIM           string `gorm:""json:"nim"`
-	Name          string `json:"name"`
-	IPK           string `json:"ipk"`
-	Jurusan       string `json:"jurusan"`
-	Angkatan      string `json:"angkatan"`
-	StatusAktif   string `jsonn:"status_aktif"`
-	Username      string `json:"username"`
-	EmailAkademik string `json:"email_akademik"`
-	WaliMahasiswa string `json:"wali_mahasiswa"`
-	JalurUSM      string `json:"jalur_USM"`
+	Nama     string `gorm:""json:"nama"`
+	Kategori string `json:"kategori"`
+	Harga    uint   `json:"harga"`
+	Gambar   string `json:"gambar"`
+	Detail   string `json:"detail"`
+	Jumlah   uint   `json:"jumlah"`
 }
 
-// fungsi init untuk  menginisialisasi koneksi kepada database
+// Fungsi unutk melakukan migrasi pada table dan akan otomatis berjalan ketika di run dan terdapat perubahan pada struktur table
 func init() {
 	config.Connect()
 	db = config.GetDB()
-	db.AutoMigrate(&Student{})
+	db.AutoMigrate(&Produk{})
 }
 
-
-// fungsi untuk membuat data baru pada tabel student
-func (b *Student) CreateStudent() *Student {
+// fungsi unutuk mencreata user baru
+func (b *Produk) CreateProduk() *Produk {
 	db.NewRecord(b)
 	db.Create(&b)
 	return b
 }
 
-// fungsi untuk mengambil semua data pada tabel student
-func GetAllStudents() []Student {
-	var Students []Student
-	db.Find(&Students)
-	return Students
+//fungsi untuk mengambil semua data yang terdapat pada table
+func GetAllProduk() []Produk {
+	var Produk []Produk
+	db.Find(&Produk)
+	return Produk
 }
 
-// fungsi untuk mengambil semua data pada tabel student berdasarkan nim
-func GetStudentbyId(nim int64) (*Student, *gorm.DB) {
-	var getStudent Student
-	db := db.Where("NIM=?", nim).Find(&getStudent)
-	return &getStudent, db
+// fungsi untuk mengambil data table sesuai dengan id yang di request
+func GetProdukbyId(id int64) (*Produk, *gorm.DB) {
+	var getProduk Produk
+	db := db.Where("ID=?", id).Find(&getProduk)
+	return &getProduk, db
 }
 
-// fungsi untuk menghapus salah satu data pada tabel student berdasarkan nim
-func DeleteStudent(nim int64) Student {
-	var student Student
-	db.Where("NIM=?", nim).Delete(student)
-	return student
+// fungsi untuk menghapus data table sesuai dengan id yang di request
+func DeleteProduk(id int64) Produk {
+	var Produk Produk
+	db.Where("ID=?", id).Delete(Produk)
+	return Produk
+
 }
