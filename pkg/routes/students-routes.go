@@ -1,15 +1,18 @@
 package routes
+
 import (
-	"github.com/gorilla/mux"
 	"github.com/Wordyka/go_students_crud_mysql/pkg/controllers"
+	"github.com/gorilla/mux"
 )
 
 // membuat route yang memanggil controller sebagai routing user mengakses data pada tabel
 
 var RegisterStudentsRoutes = func(router *mux.Router) {
-	router.HandleFunc("/student/", controllers.CreateStudent).Methods("POST")	// routing create
-	router.HandleFunc("/student/", controllers.GetStudent).Methods("GET")	// routing get all
-	router.HandleFunc("/student/{studentId}", controllers.GetStudentById).Methods("GET")	// routing get by nim
-	router.HandleFunc("/student/{studentId}", controllers.UpdateStudent).Methods("PUT")		// routing update
-	router.HandleFunc("/student/{studentId}", controllers.DeleteStudent).Methods("DELETE")	// routing delete
+	// Membuat route untuk mengatur URL dan menset method yang dijalankan dari controller pada setiap URL yang diakses
+	router.HandleFunc("/produk/", controllers.CreateProduk).Methods("POST")
+	router.HandleFunc("/produk/", controllers.GetProduk).Methods("GET")
+	router.HandleFunc("/produk/{produkId}", controllers.GetProdukById).Methods("GET")
+	router.HandleFunc("/produk/{produkId}", controllers.UpdateProduk).Methods("PUT")
+	router.HandleFunc("/produk/{produkId}", controllers.DeleteProduk).Methods("DELETE")
+
 }
