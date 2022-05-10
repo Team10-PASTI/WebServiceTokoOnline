@@ -1,4 +1,4 @@
-package main
+package cmd
 
 // import package yang akan digunakan 
 import (
