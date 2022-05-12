@@ -22,10 +22,11 @@ func GetProduk(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+
 // fungsi yang digunakan memanggil data yang sesuai dengan ID yang direquest
 func GetProdukById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	ProdukId := vars["ProdukId"]
+	ProdukId := vars["ProdukID"]
 	ID, err := strconv.ParseInt(ProdukId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
@@ -74,9 +75,7 @@ func UpdateProduk(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error while parsing")
 	}
 	ProdukDetails, db := models.GetProdukbyId(ID)
-	if updateProduk.Nama != "" { // pengkondisian untuk mengubah nilai dari nama jika terdapat perubahan yang dilakukan
-		ProdukDetails.ID = updateProduk.ID
-	}
+
 	if updateProduk.Nama != "" { // pengkondisian untuk mengubah nilai dari ipk jika terdapat perubahan yang dilakukan
 		ProdukDetails.Nama = updateProduk.Nama
 	}

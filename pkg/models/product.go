@@ -10,6 +10,7 @@ var db *gorm.DB
 // Membuat sebuah struct unutk mencreate tabel Produk dan tipe data setiap kolomnya
 type Produk struct {
 	gorm.Model
+	ID      int `json:"id"`
 	Nama     string `gorm:""json:"nama"`
 	Kategori string `json:"kategori"`
 	Harga    uint   `json:"harga"`
@@ -42,14 +43,14 @@ func GetAllProduk() []Produk {
 // fungsi untuk mengambil data table sesuai dengan id yang di request
 func GetProdukbyId(id int64) (*Produk, *gorm.DB) {
 	var getProduk Produk
-	db := db.Where("ID=?", id).Find(&getProduk)
+	db := db.Where("id=?", id).Find(&getProduk)
 	return &getProduk, db
 }
 
 // fungsi untuk menghapus data table sesuai dengan id yang di request
 func DeleteProduk(id int64) Produk {
 	var Produk Produk
-	db.Where("ID=?", id).Delete(Produk)
+	db.Where("id=?", id).Delete(Produk)
 	return Produk
 
 }
