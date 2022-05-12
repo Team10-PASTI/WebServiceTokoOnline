@@ -15,11 +15,7 @@ var NewProduk models.Produk
 
 // fungsi yang digunakan memanggil seluruh data yang terdapat pada tabel
 func GetProduk(w http.ResponseWriter, r *http.Request) {
-	newProduk := models.GetAllProduk()
-	res, _ := json.Marshal(newProduk)
-	w.Header().Set("Content-Type", "pkglication/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
+	fmt.Println("horass")
 }
 
 
