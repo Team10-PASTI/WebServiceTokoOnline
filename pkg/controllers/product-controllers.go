@@ -74,7 +74,6 @@ func UpdateProduk(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error while parsing")
 	}
 	ProdukDetails, db := models.GetProdukbyId(ID)
-
 	if updateProduk.Nama != "" { // pengkondisian untuk mengubah nilai dari ipk jika terdapat perubahan yang dilakukan
 		ProdukDetails.Nama = updateProduk.Nama
 	}
