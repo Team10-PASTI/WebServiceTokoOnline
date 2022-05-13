@@ -13,6 +13,6 @@ var ProductRoutes = func(router *mux.Router) {
 	router.HandleFunc("/produk/", controllers.GetProduk).Methods("GET")
 	router.HandleFunc("/produk/{ProdukID}", controllers.GetProdukById).Methods("GET")
 	router.HandleFunc("/produk/{ProdukId}", controllers.UpdateProduk).Methods("PUT")
-	router.HandleFunc("/produk/{ProdukID}", controllers.DeleteProduk).Methods("DELETE")
+	router.HandleFunc("/produk/{ProdukId}", controllers.DeleteProduk).Methods("DELETE")
 
 }

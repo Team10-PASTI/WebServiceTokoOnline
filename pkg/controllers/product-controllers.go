@@ -48,16 +48,15 @@ func CreateProduk(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
-// fungsi yang digunakan ketika menhapus data pada database
 func DeleteProduk(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	ProdukID := vars["ProdukID"]
-	ID, err := strconv.ParseInt(ProdukID, 0, 0)
+	ProdukId := vars["ProdukId"]
+	ID, err := strconv.ParseInt(ProdukId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	Produk := models.DeleteProduk(ID)
-	res, _ := json.Marshal(Produk)
+	produk := models.DeleteProduk(ID)
+	res, _ := json.Marshal(produk)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
