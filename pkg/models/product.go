@@ -49,8 +49,8 @@ func GetProdukbyId(id int64) (*Produk, *gorm.DB) {
 
 // fungsi untuk menghapus data table sesuai dengan id yang di request
 func DeleteProduk(id int64) Produk {
-	var Produk Produk
-	db.Where("id=?", id).Delete(Produk)
-	return Produk
+	var produk Produk
+	db.Where("id=?", id).Delete(produk)
+	return produk
 
 }
