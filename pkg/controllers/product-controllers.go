@@ -68,15 +68,18 @@ func UpdateProduk(w http.ResponseWriter, r *http.Request) {
 	var updateProduk = &models.Produk{}
 	utils.ParseBody(r, updateProduk)
 	vars := mux.Vars(r)
-	ProdukID := vars["ProdukID"]
-	ID, err := strconv.ParseInt(ProdukID, 0, 0)
+	ProdukId := vars["ProdukId"]
+	ID, err := strconv.ParseInt(ProdukId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
 	ProdukDetails, db := models.GetProdukbyId(ID)
-	if updateProduk.Nama != "" { // pengkondisian untuk mengubah nilai dari ipk jika terdapat perubahan yang dilakukan
+	if updateProduk.Nama != "" { // pengkondisian untuk mengubah nilai dari nama jika terdapat perubahan yang dilakukan
 		ProdukDetails.Nama = updateProduk.Nama
 	}
+	// if updateProduk.Kategori != "" { // pengkondisian untuk mengubah nilai dari ipk jika terdapat perubahan yang dilakukan
+	// 	ProdukDetails.Kategori = updateProduk.Kategori
+	// }
 	if updateProduk.Kategori != "" { // pengkondisian untuk mengubah nilai dari jurusan jika terdapat perubahan yang dilakukan
 		ProdukDetails.Kategori = updateProduk.Kategori
 	}
